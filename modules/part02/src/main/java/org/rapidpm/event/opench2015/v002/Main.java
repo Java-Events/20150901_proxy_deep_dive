@@ -3,6 +3,7 @@ package org.rapidpm.event.opench2015.v002;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -27,7 +28,7 @@ public class Main {
       private P original = realSubject;
       private A adapter = adapterSubject;
 
-      private Map<MethodKey, Object> methodAdapterMap = new HashMap<>();
+      private Map<MethodIdentifier, Object> methodAdapterMap = new HashMap<>();
 
       @Override
       public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
@@ -35,16 +36,18 @@ public class Main {
           final Class<?> adapterSubjectClass = adapterSubject.getClass();
           final Method[] declaredMethods = adapterSubjectClass.getDeclaredMethods();
           for (Method declaredMethod : declaredMethods) {
-            final MethodKey methodKey = new MethodKey();
-            methodKey.setMethod(declaredMethod);
+            final MethodIdentifier methodKey = new MethodIdentifier(declaredMethod);
             methodAdapterMap.put(methodKey, adapter);
           }
         }
-        final MethodKey methodKey = new MethodKey();
-        methodKey.setMethod(method);
+        final MethodIdentifier methodKey = new MethodIdentifier(method);
         if (methodAdapterMap.containsKey(methodKey)) {
           final Object adapter = methodAdapterMap.get(methodKey);
-          return method.invoke(adapter, args);
+          final Class<?> adapterClass = adapter.getClass();
+          final Method adapterMethod = adapterClass.getDeclaredMethod(
+              methodKey.name, methodKey.parameters);
+
+          return adapterMethod.invoke(adapter, args);
         } else {
           return method.invoke(original, args);
         }
@@ -58,29 +61,25 @@ public class Main {
     return subject.cast(proxyInstance);
   }
 
-  public static class MethodKey {
+  public static class MethodIdentifier {
+    private final String name;
+    private final Class[] parameters;
 
-    private Method method;
-
-    @Override
-    public boolean equals(final Object o) {
-      if (this == o) return true;
-      if (!(o instanceof MethodKey)) return false;
-      final MethodKey methodKey = (MethodKey) o;
-      return Objects.equals(method, methodKey.method);
+    public MethodIdentifier(Method m) {
+      name = m.getName();
+      parameters = m.getParameterTypes();
     }
 
-    @Override
+    // we can save time by assuming that we only compare against
+    // other MethodIdentifier objects
+    public boolean equals(Object o) {
+      MethodIdentifier mid = (MethodIdentifier) o;
+      return name.equals(mid.name) &&
+          Arrays.equals(parameters, mid.parameters);
+    }
+
     public int hashCode() {
-      return Objects.hash(method);
-    }
-
-    private Method getMethod() {
-      return method;
-    }
-
-    private void setMethod(final Method method) {
-      this.method = method;
+      return name.hashCode();
     }
   }
 
