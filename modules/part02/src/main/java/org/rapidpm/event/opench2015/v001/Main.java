@@ -22,6 +22,7 @@ public class Main {
             Proxy.newProxyInstance(classLoader,
                 clzz, new InvocationHandler() {
 
+                  private ServiceA serviceA;
                   //@Inject Service service;
 
                   @Override
@@ -34,7 +35,7 @@ public class Main {
                     System.out.println("method = " + method);
                     System.out.println("args = " + args);
 
-                    final ServiceA serviceA = new ServiceA();
+                    if (serviceA == null) serviceA = new ServiceA();
 
                     final Object invoke = method.invoke(serviceA, args);
 
