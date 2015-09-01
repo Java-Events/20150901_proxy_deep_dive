@@ -23,6 +23,9 @@ public class Main {
                 new AddAdapterBWL());
 
         System.out.println("proxy.add(1,1) = " + proxy.add(1, 1));
+        System.out.println("proxy.add(1,5) = " + proxy.add(1, 5));
+        System.out.println("proxy.sub(1,1) = " + proxy.sub(1, 1));
+        System.out.println("proxy.sub(5,1) = " + proxy.sub(5, 1));
     }
 
 
@@ -74,17 +77,17 @@ public class Main {
         public boolean equals(final Object o) {
             if (this == o) return true;
             if (!(o instanceof MethodKey)) return false;
-            final MethodKey methodKey = (MethodKey) o;
+            final MethodKey otherKey = (MethodKey) o;
 
-            if (!method.getName().equals(methodKey.method.getName())) {
+            if (!method.getName().equals(otherKey.method.getName())) {
                 return false;
             }
 
-            if (method.getParameterCount() != methodKey.method.getParameterCount()) {
+            if (method.getParameterCount() != otherKey.method.getParameterCount()) {
                 return false;
             }
             Class<?>[] parameterTypes = method.getParameterTypes();
-            Class<?>[] otherParameterTypes = methodKey.method.getParameterTypes();
+            Class<?>[] otherParameterTypes = otherKey.method.getParameterTypes();
             for (int i = 0; i < method.getParameterCount(); i++) {
                 if (!parameterTypes[i].equals(otherParameterTypes[i])) {
                     return false;
