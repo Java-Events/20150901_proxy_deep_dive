@@ -127,30 +127,30 @@
       <scope>test</scope>
     </dependency>
     <!--Microbenchmarking-->
-    <dependency>
-      <groupId>org.openjdk.jmh</groupId>
-      <artifactId>jmh-core</artifactId>
-      <version>${jmh.version}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.openjdk.jmh</groupId>
-      <artifactId>jmh-core-benchmarks</artifactId>
-      <version>${jmh.version}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.openjdk.jmh</groupId>
-      <artifactId>jmh-generator-annprocess</artifactId>
-      <version>${jmh.version}</version>
-      <!--<scope>provided</scope>-->
-    </dependency>
-    <dependency>
-      <groupId>org.openjdk.jmh</groupId>
-      <artifactId>jmh-generator-reflection</artifactId>
-      <version>${jmh.version}</version>
-      <scope>test</scope>
-    </dependency>
+    <!--<dependency>-->
+      <!--<groupId>org.openjdk.jmh</groupId>-->
+      <!--<artifactId>jmh-core</artifactId>-->
+      <!--<version>${jmh.version}</version>-->
+      <!--<scope>test</scope>-->
+    <!--</dependency>-->
+    <!--<dependency>-->
+      <!--<groupId>org.openjdk.jmh</groupId>-->
+      <!--<artifactId>jmh-core-benchmarks</artifactId>-->
+      <!--<version>${jmh.version}</version>-->
+      <!--<scope>test</scope>-->
+    <!--</dependency>-->
+    <!--<dependency>-->
+      <!--<groupId>org.openjdk.jmh</groupId>-->
+      <!--<artifactId>jmh-generator-annprocess</artifactId>-->
+      <!--<version>${jmh.version}</version>-->
+      <!--&lt;!&ndash;<scope>provided</scope>&ndash;&gt;-->
+    <!--</dependency>-->
+    <!--<dependency>-->
+      <!--<groupId>org.openjdk.jmh</groupId>-->
+      <!--<artifactId>jmh-generator-reflection</artifactId>-->
+      <!--<version>${jmh.version}</version>-->
+      <!--<scope>test</scope>-->
+    <!--</dependency>-->
 
 
   </dependencies>
