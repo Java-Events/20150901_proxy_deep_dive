@@ -36,12 +36,14 @@ public class Main {
 
                     final ServiceA serviceA = new ServiceA();
 
+                    final Object invoke = method.invoke(serviceA, args);
 
-                    return null;
+                    return invoke;
                   }
                 })));
 
-    proxyInstance.doWorkA();
+    final String result = proxyInstance.doWorkA();
+    System.out.println("result = " + result);
 
     final boolean proxyClass = Proxy.isProxyClass(proxyInstance.getClass());
     if (proxyClass){
