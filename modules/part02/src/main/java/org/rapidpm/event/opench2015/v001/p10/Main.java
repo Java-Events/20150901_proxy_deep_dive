@@ -25,12 +25,20 @@ public class Main {
                                     public Object invoke(final Object proxy,
                                                          final Method method,
                                                          final Object[] args) throws Throwable {
-                                        return strategyFactory.realSubject(serviceFactory).doWorkA();
+
+                                        System.out.println("Proxy called");
+
+                                        MyService myService = strategyFactory.realSubject(serviceFactory);
+                                        Object result = method.invoke(myService, args);
+
+                                        System.out.println("Proxy finished");
+
+                                        return result;
                                     }
                                 })));
 
-        String response = proxyInstance.doWorkA();
-        System.out.println(response);
+        System.out.println(proxyInstance.doWorkA());
+        System.out.println(proxyInstance.doWorkB());
     }
 
     public static interface ServiceFactory {
@@ -54,6 +62,7 @@ public class Main {
         @Override
         public MyService realSubject(final ServiceFactory factory) {
             if (realSubject == null) {
+                System.out.println("Creating instance");
                 realSubject = factory.createInstance();
             }
             return realSubject;
