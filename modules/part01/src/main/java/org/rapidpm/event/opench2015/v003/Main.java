@@ -36,7 +36,7 @@ public class Main {
     }
   }
 
-  public static class SecProxyFactory{
+  public static class SecProxyFactory {
 
     public static Service create(Service service){
       final SecProxy secProxy = new SecProxy();
