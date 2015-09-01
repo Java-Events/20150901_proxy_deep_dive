@@ -33,11 +33,14 @@ public class Main {
 
                                         System.out.println("Proxy called");
 
-                                        if (method.getName().equals("add")) {
-                                            return adapterBWL.add(Integer.class.cast(args[0]), Integer.class.cast(args[1]));
-                                        } else {
-                                            return method.invoke(rechner, args);
+                                        Method[] methods = adapterBWL.getClass().getMethods();
+
+                                        for (Method m : methods) {
+                                            if (m.getName().equals(method.getName())) {
+                                                return m.invoke(adapterBWL, args);
+                                            }
                                         }
+                                        return method.invoke(rechner, args);
                                     }
                                 })));
 
