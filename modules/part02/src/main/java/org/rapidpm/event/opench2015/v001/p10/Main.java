@@ -25,7 +25,8 @@ public class Main {
                                     public Object invoke(final Object proxy,
                                                          final Method method,
                                                          final Object[] args) throws Throwable {
-                                        return strategyFactory.realSubject(serviceFactory).doWorkA();
+                                        MyService myService = strategyFactory.realSubject(serviceFactory);
+                                        return method.invoke(myService, args);
                                     }
                                 })));
 
