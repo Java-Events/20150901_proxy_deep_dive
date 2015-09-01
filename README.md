@@ -17,6 +17,9 @@ Agenda für den heutigen Tag
 |Part07   |1615   |1715  |   |   |
 
 
+http://sven-ruppert.gitbooks.io/kurse/
+
+
 ## Part01
 * Benötigte Besonderheiten von Java8
   * Functional Interfaces
